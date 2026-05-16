@@ -5,6 +5,7 @@
   `[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new(); Get-Content -Raw -Encoding UTF8 -LiteralPath 'path'`
 - When creating or editing speech manuscripts, refer to `docs/模板與提示詞/演講風格.md` and keep the writing aligned with that speaking style.
 - When creating or editing outlines, follow `docs/模板與提示詞/大綱整理規則.md`.
+- For any new speech topic, start by creating or refining the outline first. Confirm the content structure in the outline before expanding it into the speech manuscript.
 - Speech manuscripts are expanded versions of their corresponding outlines. Treat each outline/manuscript pair as linked documents: when updating one, immediately review the other and apply any needed synchronized changes.
 - For linked outline/manuscript pairs, the speech manuscript must include the outline's major headings and subheadings so the two documents can be read in parallel during preparation and delivery.
 - For linked outline/manuscript pairs, keep both the major heading structure and subheading structure synchronized: the number, order, and meaning of corresponding headings should match unless there is an explicit reason to diverge. If the structures intentionally differ, state the reason clearly in the response.
