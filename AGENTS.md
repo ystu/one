@@ -4,6 +4,7 @@
 - This workspace contains Chinese Markdown files. When reading them in PowerShell, use UTF-8 explicitly to avoid mojibake:
   `[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new(); Get-Content -Raw -Encoding UTF8 -LiteralPath 'path'`
 - When creating or editing speech manuscripts, refer to `docs/模板與提示詞/演講風格.md` and keep the writing aligned with that speaking style.
+- When moving into each major heading or subheading in a speech manuscript, first add a brief spoken transition that bridges from the preceding topic into the next section, so the new heading is prepared by the prior content rather than appearing abruptly.
 - When creating or editing outlines, follow `docs/模板與提示詞/大綱整理規則.md`.
 - For any new speech topic, start by creating or refining the outline first. Confirm the content structure in the outline before expanding it into the speech manuscript.
 - Speech manuscripts are expanded versions of their corresponding outlines. Treat each outline/manuscript pair as linked documents: when updating one, immediately review the other and apply any needed synchronized changes.
