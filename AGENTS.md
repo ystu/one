@@ -3,6 +3,7 @@
 - Before starting any task in this workspace, explicitly read this `AGENTS.md` file and follow its instructions.
 - This workspace contains Chinese Markdown files. When reading them in PowerShell, use UTF-8 explicitly to avoid mojibake:
   `[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new(); Get-Content -Raw -Encoding UTF8 -LiteralPath 'path'`
+- When organizing meeting transcripts or meeting notes, first refer to `meeting/專有名詞表.md` and use its 「錯誤辨識／正確用詞」 mappings to correct names, titles, and proper nouns.
 - When creating or editing speech manuscripts, refer to `docs/模板與提示詞/演講風格.md` and keep the writing aligned with that speaking style.
 - When moving into each major heading or subheading in a speech manuscript, first add a brief spoken transition that bridges from the preceding topic into the next section, so the new heading is prepared by the prior content rather than appearing abruptly.
 - When creating or editing outlines, follow `docs/模板與提示詞/大綱整理規則.md`.
