@@ -3,6 +3,7 @@
 - Before starting any task in this workspace, explicitly read this `AGENTS.md` file and follow its instructions.
 - This workspace contains Chinese Markdown files. When reading them in PowerShell, use UTF-8 explicitly to avoid mojibake:
   `[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new(); Get-Content -Raw -Encoding UTF8 -LiteralPath 'path'`
+- When organizing or editing transcripts, outlines, speech manuscripts, or other documents related to the 道場, refer to `docs/專有名詞表.md` and use its mappings and confirmed terms to correct names, titles, and 道場-specific terminology.
 - When organizing meeting transcripts or meeting notes, first refer to `meeting/專有名詞表.md` and use its 「錯誤辨識／正確用詞」 mappings to correct names, titles, and proper nouns.
 - When organizing meeting records, include the opening and closing remarks before and after the formal meeting when they appear in the transcript; place them near the beginning and end of the meeting record respectively.
 - When creating or revising posters, first create or revise the no-text background/base visual and show it for approval. Do not add final typography, event details, or Chinese text until the background direction has been approved by the user.
