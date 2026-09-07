@@ -10,6 +10,8 @@
 - When organizing meeting records, include the opening and closing remarks before and after the formal meeting when they appear in the transcript; place them near the beginning and end of the meeting record respectively.
 - When creating or revising posters, first create or revise the no-text background/base visual and show it for approval. Do not add final typography, event details, or Chinese text until the background direction has been approved by the user.
 - When creating or editing speech manuscripts, refer to `docs/模板與提示詞/演講風格.md` and keep the writing aligned with that speaking style.
+- 撰寫或修改講稿時，所有實質內容（包括道理說明、經典引文、人物言論、歷史事蹟、故事、案例及數據）都必須以目前 repo 內已實際查閱的資料為依據，不得憑模型記憶、網路資料或推測自行補寫。可在忠於原意的前提下整理、口語化及添加銜接語，但不得新增來源未支持的主張或細節。
+- 講稿的重要主張、引文及故事須能追溯至 repo 內的具體檔案與段落；在講稿註記或對應的備課來源檔記錄出處。直接引文須核對原文，改寫不得冒充原話；不得虛構出處，或把 repo 未載明的外部原典當作已查證來源。若 repo 資料不足、來源不明或彼此矛盾，明確標示「待補資料／待確認」並說明缺口，不得自行編造或當成定論寫入講稿。
 - When creating or editing speech manuscripts, use this opening gratitude wording before introducing the topic: `敬愛的領班、操持講師、以及各位前賢大家晚安!大家好，後學承蒙上天慈悲、祖師弘慈、師恩母德、何老前人開荒台灣的五大犧牲、薛前人的浩然正氣、楊前人的老實修辦、王前人的好好修道、始終如一以及現今李前人慈悲的領導，永續創建一個六合圓滿、紀律化的優質道場，這些都要感恩過去前輩者的犧牲奉獻，建立了道場的基礎跟道場文化，才有今天這麼好的修道環境，後學也感念地區各位點傳師的提拔以及各位前賢們苦口婆心的成全與鼓勵，今天後學才有這個機會可以在這裡學習，後學今天要來學習的題目是OOOO！`
 - When creating or editing speech manuscripts, use this closing wording at the end: `後學今日的學習講述到此告一段落，因為後學才疏學淺，還不能夠將道理講述得非常清楚，講述的過程中如有過失懇求上天慈悲，也懇請領班、操持講師以及各位前賢給予後學指正，祝福大家法喜充滿、聖凡如意，謝謝！`
 - When moving into each major heading or subheading in a speech manuscript, first add a brief spoken transition that bridges from the preceding topic into the next section, so the new heading is prepared by the prior content rather than appearing abruptly.
