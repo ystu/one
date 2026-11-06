@@ -8,9 +8,9 @@
 - 讓之後寫講稿、備課、延伸系列主題時，不必每次從零開始。
 
 ## 主要位置
-- [知識庫索引](c:/Users/ystu0/Documents/Playground/one/docs/index.md)
-- [道場題材庫](c:/Users/ystu0/Documents/Playground/one/docs/道場題材庫.md)
-- [講稿資料](c:/Users/ystu0/Documents/Playground/one/speech)
+- [知識庫索引](docs/index.md)
+- [道場題材庫](docs/道場題材庫.md)
+- [講稿資料](speech)
 
 ## 原則
 - `docs/` 放知識與工具。

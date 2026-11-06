@@ -6,5 +6,5 @@
 - 經典對照索引
 - 人物對照索引
 
-目前總入口請先看 [知識庫首頁](c:/Users/ystu0/Documents/Playground/one/docs/index.md)。
+目前總入口請先看 [知識庫首頁](../index.md)。
 

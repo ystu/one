@@ -3,9 +3,9 @@
 這個 `repo` 的目標，是把講道會反覆用到的題材、經典、故事、風格與講稿成品分開整理，讓資料能長期累積，也找得到。
 
 ## 入口
-- [道場題材庫](c:/Users/ystu0/Documents/Playground/one/docs/道場題材庫.md)
-- [故事庫](c:/Users/ystu0/Documents/Playground/one/docs/故事庫/中國歷史人物故事整理.md)
-- [模板與提示詞](c:/Users/ystu0/Documents/Playground/one/docs/模板與提示詞/講稿風格prompt.md)
+- [道場題材庫](道場題材庫.md)
+- [故事庫](故事庫/中國歷史人物故事整理.md)
+- [模板與提示詞](模板與提示詞/演講風格.md)
 
 ## 結構說明
 
