@@ -12,6 +12,7 @@ Markdown 中的引用區塊（> 開頭的討論紀錄）不會輸出。
     --reference  格式參考 Word，預設為三曹普渡大綱v1（已含三層多層次編號）
     --narrow     上下左右 1.27 公分窄邊界（一張 A4 版用）；預設為一般版邊界
     --line       內文固定行高（點），預設 21.5
+    --levels     輸出層數（2 或 3），預設 3；2 只輸出大題與次標題
 """
 import argparse
 import html
@@ -57,7 +58,7 @@ def run(text, size, bold=False, spacing=20):
             f'</w:rPr><w:t xml:space="preserve">{html.escape(text, quote=False)}</w:t></w:r>')
 
 
-def build(title, items, ref, out, narrow, line_pt):
+def build(title, items, ref, out, narrow, line_pt, levels=3):
     with zipfile.ZipFile(ref) as z:
         doc = z.read('word/document.xml').decode('utf8')
     numid = re.search(r'<w:numId w:val="(\d+)"', doc).group(1)
@@ -70,11 +71,12 @@ def build(title, items, ref, out, narrow, line_pt):
         f'<w:snapToGrid w:val="0" /></w:pPr>{run(AUTHOR, 24)}</w:p>',
     ]
     seen_first = False
+    items = [(lv, text) for lv, text in items if lv < levels]
     for lv, text in items:
         left, hang, sp = LEVELS[lv]
         before = 60 if lv == 0 and seen_first else 0  # 第二個大題起段前 3 點
         seen_first = seen_first or lv == 0
-        keep = '<w:keepNext />' if lv < 2 else ''
+        keep = '<w:keepNext />' if lv < levels - 1 else ''
         paras.append(
             f'<w:p><w:pPr>{keep}<w:numPr><w:ilvl w:val="{lv}" /><w:numId w:val="{numid}" /></w:numPr>'
             f'<w:spacing w:before="{before}" w:after="0" w:lineRule="exact" w:line="{line}" />'
@@ -106,11 +108,13 @@ def main():
     ap.add_argument('--reference', default=str(DEFAULT_REF))
     ap.add_argument('--narrow', action='store_true')
     ap.add_argument('--line', type=float, default=21.5)
+    ap.add_argument('--levels', type=int, choices=(2, 3), default=3)
     a = ap.parse_args()
     title, items = parse_outline(a.source)
-    build(title, items, a.reference, a.output, a.narrow, a.line)
-    counts = [sum(1 for lv, _ in items if lv == i) for i in range(3)]
-    print(f'{title}：大題 {counts[0]}、次標題 {counts[1]}、重點 {counts[2]} → {a.output}')
+    build(title, items, a.reference, a.output, a.narrow, a.line, a.levels)
+    counts = [sum(1 for lv, _ in items if lv == i) for i in range(a.levels)]
+    labels = ['大題', '次標題', '重點'][:a.levels]
+    print(f'{title}：' + '、'.join(f'{l} {c}' for l, c in zip(labels, counts)) + f' → {a.output}')
 
 
 if __name__ == '__main__':
