@@ -13,6 +13,9 @@ Markdown 中的引用區塊（> 開頭的討論紀錄）不會輸出。
     --narrow     上下左右 1.27 公分窄邊界（一張 A4 版用）；預設為一般版邊界
     --line       內文固定行高（點），預設 21.5
     --levels     輸出層數（2 或 3），預設 3；2 只輸出大題與次標題
+    --text-numbering  標號以文字輸出，不使用 Word 自動編號；Google Drive 等
+                 不支援中文編號格式的檢視器會把「一、（一）」顯示成「1、（1）」，
+                 需要在這類環境開啟時使用
 """
 import argparse
 import html
@@ -58,7 +61,22 @@ def run(text, size, bold=False, spacing=20):
             f'</w:rPr><w:t xml:space="preserve">{html.escape(text, quote=False)}</w:t></w:r>')
 
 
-def build(title, items, ref, out, narrow, line_pt, levels=3):
+CN = '一二三四五六七八九十'
+
+
+def cn_num(n):
+    if n <= 10:
+        return CN[n - 1]
+    if n < 20:
+        return '十' + CN[n - 11]
+    return CN[n // 10 - 1] + '十' + (CN[n % 10 - 1] if n % 10 else '')
+
+
+def label(lv, n):
+    return [f'{cn_num(n)}、', f'（{cn_num(n)}）', f'{n}.'][lv]
+
+
+def build(title, items, ref, out, narrow, line_pt, levels=3, text_numbering=False):
     with zipfile.ZipFile(ref) as z:
         doc = z.read('word/document.xml').decode('utf8')
     numid = re.search(r'<w:numId w:val="(\d+)"', doc).group(1)
@@ -72,16 +90,27 @@ def build(title, items, ref, out, narrow, line_pt, levels=3):
     ]
     seen_first = False
     items = [(lv, text) for lv, text in items if lv < levels]
+    counters = [0, 0, 0]
     for lv, text in items:
         left, hang, sp = LEVELS[lv]
+        counters[lv] += 1
+        counters[lv + 1:] = [0] * (2 - lv)
         before = 60 if lv == 0 and seen_first else 0  # 第二個大題起段前 3 點
         seen_first = seen_first or lv == 0
         keep = '<w:keepNext />' if lv < levels - 1 else ''
+        if text_numbering:
+            num = ''
+            tabs = f'<w:tabs><w:tab w:val="left" w:pos="{left}" /></w:tabs>'
+            body = run(label(lv, counters[lv]), 28, spacing=sp) + '<w:r><w:tab /></w:r>' + run(text, 28, spacing=sp)
+        else:
+            num = f'<w:numPr><w:ilvl w:val="{lv}" /><w:numId w:val="{numid}" /></w:numPr>'
+            tabs = f'<w:tabs><w:tab w:val="num" w:pos="{left}" /></w:tabs>'
+            body = run(text, 28, spacing=sp)
         paras.append(
-            f'<w:p><w:pPr>{keep}<w:numPr><w:ilvl w:val="{lv}" /><w:numId w:val="{numid}" /></w:numPr>'
+            f'<w:p><w:pPr>{keep}{num}'
             f'<w:spacing w:before="{before}" w:after="0" w:lineRule="exact" w:line="{line}" />'
-            f'<w:tabs><w:tab w:val="num" w:pos="{left}" /></w:tabs><w:ind w:left="{left}" w:hanging="{hang}" />'
-            f'<w:snapToGrid w:val="0" /></w:pPr>{run(text, 28, spacing=sp)}</w:p>')
+            f'{tabs}<w:ind w:left="{left}" w:hanging="{hang}" />'
+            f'<w:snapToGrid w:val="0" /></w:pPr>{body}</w:p>')
 
     tb, lr = MARGINS['narrow' if narrow else 'normal']
     sect = re.search(r'<w:sectPr.*?</w:sectPr>', doc).group(0)
@@ -109,9 +138,10 @@ def main():
     ap.add_argument('--narrow', action='store_true')
     ap.add_argument('--line', type=float, default=21.5)
     ap.add_argument('--levels', type=int, choices=(2, 3), default=3)
+    ap.add_argument('--text-numbering', action='store_true')
     a = ap.parse_args()
     title, items = parse_outline(a.source)
-    build(title, items, a.reference, a.output, a.narrow, a.line, a.levels)
+    build(title, items, a.reference, a.output, a.narrow, a.line, a.levels, a.text_numbering)
     counts = [sum(1 for lv, _ in items if lv == i) for i in range(a.levels)]
     labels = ['大題', '次標題', '重點'][:a.levels]
     print(f'{title}：' + '、'.join(f'{l} {c}' for l, c in zip(labels, counts)) + f' → {a.output}')
